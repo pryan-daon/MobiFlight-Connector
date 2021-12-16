@@ -470,6 +470,39 @@ namespace MobiFlight.UI
             execManager.AutoConnectStart();
         }
 
+        private DialogResult ShowMessageThreadSafe(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
+        {
+            return MessageBox.Show(this, msg, title, buttons);
+        }
+
+        
+
+        /*
+        private void CheckForUpdate(bool force, bool silent = false)
+        {
+            AutoUpdater.Mandatory = force;
+            AutoUpdater.ShowSkipButton = true;
+            AutoUpdater.ShowRemindLaterButton = true;
+            AutoUpdater.UpdateFormSize = new System.Drawing.Size(600, 500);
+
+            if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();
+
+            String trackingParams = "?cache=" + Properties.Settings.Default.CacheId + "-" + Properties.Settings.Default.Started;
+
+            Log.Instance.log("Checking for updates", LogSeverity.Info);
+            AutoUpdater.RunUpdateAsAdmin = true;
+            SilentUpdateCheck = silent;
+
+            String updateUrl = MobiFlightUpdateUrl;
+            if (Properties.Settings.Default.BetaUpdates) updateUrl = MobiFlightUpdateBetasUrl;
+#if DEBUG
+            if (Properties.Settings.Default.BetaUpdates) updateUrl = MobiFlightUpdateDebugUrl;
+#endif
+            AutoUpdater.DownloadPath = Environment.CurrentDirectory;
+            AutoUpdater.Start(updateUrl + trackingParams + "1");
+        }
+        */
+
         void execManager_OnTestModeException(object sender, EventArgs e)
         {
             stopTestToolStripButton_Click(null, null);
@@ -870,6 +903,7 @@ namespace MobiFlight.UI
             catch (Exception e)
             {
                 // do nothing
+                // MessageBox.Show(e.Message);
                 Log.Instance.log("MainForm.updateNotifyContextMenu() : " + e.Message, LogSeverity.Warn);
             }
         }
@@ -881,7 +915,7 @@ namespace MobiFlight.UI
         {
             if (this.WindowState != FormWindowState.Minimized)
             {
-                TimeoutMessageDialog.Show(msg, i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Warning); 
+                MessageBox.Show(msg, i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Warning); 
             }
             else
             {
@@ -1174,7 +1208,7 @@ namespace MobiFlight.UI
             }
             else if (showNotNecessaryMessage)
             {
-                TimeoutMessageDialog.Show(i18n._tr("uiMessageNoNotConnectedJoysticksInConfigFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(i18n._tr("uiMessageNoNotConnectedJoysticksInConfigFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -1209,7 +1243,7 @@ namespace MobiFlight.UI
                 }
                 else if (showNotNecessaryMessage)
                 {
-                    TimeoutMessageDialog.Show(i18n._tr("uiMessageNoOrphanedSerialsFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(i18n._tr("uiMessageNoOrphanedSerialsFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception e) {

@@ -160,7 +160,6 @@ namespace MobiFlight
                 Max == (obj as Interpolation).Max &&
                 Min == (obj as Interpolation).Min &&
                 Count == (obj as Interpolation).Count &&
-                Active == (obj as Interpolation).Active &&
                 entriesAreSame;
         }
     }

@@ -37,6 +37,7 @@ namespace MobiFlight.UI.Dialogs
         Panels.DisplayLedDisplayPanel       displayLedDisplayPanel      = new Panels.DisplayLedDisplayPanel();
         Panels.DisplayNothingSelectedPanel  displayNothingSelectedPanel = new Panels.DisplayNothingSelectedPanel();
         Panels.LCDDisplayPanel              displayLcdDisplayPanel      = new Panels.LCDDisplayPanel();
+        Panels.UpdatedLCDDisplayPanel       updatedLcdDisplayPanel      = new Panels.UpdatedLCDDisplayPanel();
         Panels.ServoPanel                   servoPanel                  = new Panels.ServoPanel();
         Panels.StepperPanel                 stepperPanel                = new Panels.StepperPanel();
         Panels.DisplayShiftRegisterPanel    displayShiftRegisterPanel   = new Panels.DisplayShiftRegisterPanel();
@@ -168,6 +169,11 @@ namespace MobiFlight.UI.Dialogs
             displayLcdDisplayPanel.Height = 0;
             displayLcdDisplayPanel.Dock = DockStyle.Top;
 
+            groupBoxDisplaySettings.Controls.Add(updatedLcdDisplayPanel);
+            updatedLcdDisplayPanel.AutoSize = false;
+            updatedLcdDisplayPanel.Height = 0;
+            updatedLcdDisplayPanel.Dock = DockStyle.Top;
+
             displayPanels.Clear();
             displayPanelHeight = 0;
             displayPanels.Add(displayPinPanel);
@@ -177,6 +183,7 @@ namespace MobiFlight.UI.Dialogs
             displayPanels.Add(servoPanel);
             displayPanels.Add(stepperPanel);
             displayPanels.Add(displayLcdDisplayPanel);
+            displayPanels.Add(updatedLcdDisplayPanel);
             displayPanels.Add(displayShiftRegisterPanel);
 
             foreach (UserControl p in displayPanels)
@@ -392,6 +399,8 @@ namespace MobiFlight.UI.Dialogs
 
             displayLcdDisplayPanel.syncFromConfig(config);
 
+            updatedLcdDisplayPanel.syncFromConfig(config);
+
             displayShiftRegisterPanel.SyncFromConfig(config);
 
             preconditionListTreeView.Nodes.Clear();
@@ -496,6 +505,8 @@ namespace MobiFlight.UI.Dialogs
             stepperPanel.syncToConfig(config);
 
             displayLcdDisplayPanel.syncToConfig(config);
+
+            updatedLcdDisplayPanel.syncToConfig(config);
 
             displayShiftRegisterPanel.SyncToConfig(config);
 
@@ -801,6 +812,8 @@ namespace MobiFlight.UI.Dialogs
                     displayShiftRegisterPanel.SetAddresses(shiftRegisters);
 
                     displayLcdDisplayPanel.SetAddresses(lcdDisplays);
+
+                    updatedLcdDisplayPanel.SetAddresses(lcdDisplays);
                 }
                 if ((sender as ComboBox).Text == "Pin")
                 {
@@ -836,6 +849,10 @@ namespace MobiFlight.UI.Dialogs
                     displayLcdDisplayPanel.Enabled = panelEnabled;
                     displayLcdDisplayPanel.AutoSize = true;
                     displayLcdDisplayPanel.Height = displayPanelHeight;
+
+                    updatedLcdDisplayPanel.Enabled = panelEnabled;
+                    updatedLcdDisplayPanel.AutoSize = true;
+                    updatedLcdDisplayPanel.Height = displayPanelHeight;
                 }
 
                 if ((sender as ComboBox).Text == DeviceType.ShiftRegister.ToString("F"))

@@ -12,6 +12,8 @@ namespace MobiFlight.UI.Panels.Config
 {
     public partial class ConfigRefPanelItem : UserControl
     {
+        DataView dv;
+
         public ConfigRefPanelItem()
         {
             InitializeComponent();
@@ -20,6 +22,8 @@ namespace MobiFlight.UI.Panels.Config
 
         public void SetDataView(DataView dv)
         {
+            this.dv = dv;
+
             configRefComboBox.DataSource = dv;
             configRefComboBox.ValueMember = "guid";
             configRefComboBox.DisplayMember = "description";
@@ -33,7 +37,6 @@ namespace MobiFlight.UI.Panels.Config
         internal void syncFromConfig(ConfigRef config)
         {
             checkBox1.Checked = config.Active;
-            
             try {
                 // if we have a null value, it might have happened
                 // that we use to have a reference that got deleted
@@ -47,9 +50,8 @@ namespace MobiFlight.UI.Panels.Config
                     configRefComboBox.Text = "Select reference";
                     errorProvider1.SetError(configRefComboBox, "No valid reference");
                 }
-                else {
-                    configRefComboBox.SelectedValue = config.Ref;                    
-                }
+                else 
+                    configRefComboBox.SelectedValue = config.Ref;
 
                 if (configRefComboBox.SelectedValue == null)
                 {
@@ -59,9 +61,8 @@ namespace MobiFlight.UI.Panels.Config
             catch (Exception exc)
             {
                 // precondition could not be loaded, reference not valid anymore
-                Log.Instance.log("ConfigRefPanel.syncFromConfig : ConfigRef could not be loaded, " + exc.Message, LogSeverity.Debug);
+                Log.Instance.log("ConfigRefPanel.syncFromConfig : Precondition could not be loaded, " + exc.Message, LogSeverity.Debug);
             }
-            
             textBox1.Text = config.Placeholder;
         }
 

@@ -74,10 +74,5 @@ namespace MobiFlight.UI.Panels
             lcdDisplayTextBox.Width = 4 + (Cols * 8);
             lcdDisplayTextBox.Height = Lines * 16;
         }
-
-        private void lcdDisplayTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

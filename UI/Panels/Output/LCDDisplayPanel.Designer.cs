@@ -108,7 +108,6 @@
             this.lcdDisplayTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lcdDisplayTextBox.ForeColor = System.Drawing.Color.White;
             this.lcdDisplayTextBox.Name = "lcdDisplayTextBox";
-            this.lcdDisplayTextBox.TextChanged += new System.EventHandler(this.lcdDisplayTextBox_TextChanged);
             // 
             // label3
             // 

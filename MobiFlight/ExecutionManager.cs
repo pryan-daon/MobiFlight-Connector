@@ -334,10 +334,8 @@ namespace MobiFlight
                 !arcazeCache.isConnected() &&
 #endif
 #if MOBIFLIGHT
-                !mobiFlightCache.isConnected() &&
-
+                !mobiFlightCache.isConnected()
 #endif
-                !joystickManager.JoysticksConnected()
             ) return;
 
             // this is kind of sempahore to prevent multiple execution
@@ -997,8 +995,8 @@ namespace MobiFlight
                           
                             mobiFlightCache.setShiftRegisterOutput(
                                 serial,
-                                cfg.ShiftRegister.Address,
-                                cfg.ShiftRegister.Pin,
+                                cfg.ShiftRegister,
+                                cfg.RegisterOutputPin,
                                 outputValueShiftRegister);
                         }
                         break;

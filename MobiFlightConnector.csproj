@@ -218,10 +218,10 @@
     <Compile Include="MobiFlight\MobiFlightButton.cs" />
     <Compile Include="MobiFlight\MobiFlightEncoder.cs" />
     <Compile Include="MobiFlight\MobiFlightVariable.cs" />
+    <Compile Include="MobiFlight\OutputConfig\UpdatedLcdDisplay.cs" />
     <Compile Include="MobiFlight\OutputConfig\Comparison.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
-    <Compile Include="MobiFlight\OutputConfig\ShiftRegister.cs" />
     <Compile Include="MobiFlight\OutputConfig\Pin.cs" />
     <Compile Include="MobiFlight\OutputConfig\Servo.cs" />
     <Compile Include="MobiFlight\OutputConfig\VariableOutput.cs" />
@@ -377,6 +377,18 @@
     </Compile>
     <Compile Include="UI\Panels\Output\DisplayShiftRegisterPanel.Designer.cs">
       <DependentUpon>DisplayShiftRegisterPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Output\SimpleLCDDisplayContentPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Output\SimpleLCDDisplayContentPanel.Designer.cs">
+      <DependentUpon>SimpleLCDDisplayContentPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Output\UpdatedLCDDisplayPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Output\UpdatedLCDDisplayPanel.Designer.cs">
+      <DependentUpon>UpdatedLCDDisplayPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Settings\ArcazePanel.cs">
       <SubType>UserControl</SubType>
@@ -759,13 +771,13 @@
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_mega_1_12_3.hex">
+    <None Include="firmware\mobiflight_mega_1_12_1.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_micro_1_12_3.hex">
+    <None Include="firmware\mobiflight_micro_1_12_1.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_uno_1_12_3.hex">
+    <None Include="firmware\mobiflight_uno_1_12_1.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\msfs2020_simvars.cip">
@@ -933,6 +945,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\DisplayPinPanel.de.resx">
       <DependentUpon>DisplayPinPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\SimpleLCDDisplayContentPanel.resx">
+      <DependentUpon>SimpleLCDDisplayContentPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\UpdatedLCDDisplayPanel.resx">
+      <DependentUpon>UpdatedLCDDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\ArcazePanel.de.resx">
       <DependentUpon>ArcazePanel.cs</DependentUpon>

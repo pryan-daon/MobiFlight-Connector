@@ -72,7 +72,7 @@ namespace MobiFlight
                                                       ";>", LogSeverity.Debug);
 
             // Send command
-            CmdMessenger.SendCommand(command, SendQueue.WaitForEmptyQueue, ReceiveQueue.Default);
+            CmdMessenger.SendCommand(command);
         }
 
         public string Apply(LcdDisplay lcdConfig, string value, List<ConfigRefValue> replacements)

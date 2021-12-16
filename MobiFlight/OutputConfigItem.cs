@@ -33,11 +33,13 @@ namespace MobiFlight
 		public OutputConfig.Pin Pin                         { get; set; }
 		public OutputConfig.LedModule LedModule                   { get; set; }
 		public OutputConfig.LcdDisplay LcdDisplay                  { get; set; }
-		public List<string> BcdPins                     { get; set; }
+        public OutputConfig.UpdatedLcdDisplay UpdatedLcdDisplay { get; set; }
+        public List<string> BcdPins                     { get; set; }
         public OutputConfig.Servo Servo { get; set; }
         public OutputConfig.Stepper Stepper { get; set; }
         public Interpolation Interpolation              { get; set; }
-        public OutputConfig.ShiftRegister ShiftRegister               { get; set; }
+        public string       ShiftRegister               { get; set; }
+        public string       RegisterOutputPin           { get; set; }
         public string       DisplayTrigger              { get; set; }
         public PreconditionList   Preconditions       { get; set; }
         public ConfigRefList      ConfigRefs          { get; set; }        
@@ -56,7 +58,6 @@ namespace MobiFlight
             Servo = new OutputConfig.Servo();
             Stepper = new OutputConfig.Stepper() { CompassMode = false };
             BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
-            ShiftRegister = new OutputConfig.ShiftRegister();
             Interpolation = new Interpolation();
             Preconditions = new PreconditionList();
             ConfigRefs = new ConfigRefList();
@@ -83,8 +84,6 @@ namespace MobiFlight
                 //===
                 // TODO: I will ignore this, because it is a deprecated feature
                 // this.BcdPins.Equals((obj as OutputConfigItem).BcdPins) &&
-                //===
-                this.ShiftRegister.Equals((obj as OutputConfigItem).ShiftRegister) &&
                 //===
                 this.Interpolation.Equals((obj as OutputConfigItem).Interpolation) &&
                 //===
@@ -176,9 +175,24 @@ namespace MobiFlight
                     // don't read to the end tag all the way
                     reader.Read();
                 }
+                else if (DisplayType == OutputConfig.UpdatedLcdDisplay.Type)
+                {
+                    if (UpdatedLcdDisplay == null) UpdatedLcdDisplay = new OutputConfig.UpdatedLcdDisplay();
+                    UpdatedLcdDisplay.ReadXml(reader);
+
+                    reader.Read();
+                }
                 else if (DisplayType == MobiFlightShiftRegister.TYPE)
                 {
-                    ShiftRegister.ReadXml(reader);
+                    if (reader["registerOutputPin"] != null && reader["registerOutputPin"] != "")
+                    {
+                        RegisterOutputPin = reader["registerOutputPin"];
+                    }
+
+                    if (reader["shiftRegister"] != null && reader["shiftRegister"] != "")
+                    {
+                        ShiftRegister = reader["shiftRegister"];
+                    }
                 }
             }
 
@@ -286,9 +300,15 @@ namespace MobiFlight
                     if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
                     LcdDisplay.WriteXml(writer);
                 }
+                else if (DisplayType == OutputConfig.UpdatedLcdDisplay.Type)
+                {
+                    if (UpdatedLcdDisplay == null) UpdatedLcdDisplay = new OutputConfig.UpdatedLcdDisplay();
+                    UpdatedLcdDisplay.WriteXml(writer);
+                }
                 else if (DisplayType == MobiFlightShiftRegister.TYPE)
                 {
-                    ShiftRegister.WriteXml(writer);
+                    writer.WriteAttributeString("shiftRegister", ShiftRegister);
+                    writer.WriteAttributeString("registerOutputPin", RegisterOutputPin);
                 }
                 else
                 {
@@ -336,7 +356,8 @@ namespace MobiFlight
             clone.Servo                     = Servo.Clone() as OutputConfig.Servo;
             clone.Stepper                   = Stepper.Clone() as OutputConfig.Stepper;
 
-            clone.ShiftRegister             = ShiftRegister.Clone() as OutputConfig.ShiftRegister;
+            clone.ShiftRegister             = this.ShiftRegister;
+            clone.RegisterOutputPin         = this.RegisterOutputPin;
 
             clone.LcdDisplay                = this.LcdDisplay.Clone() as OutputConfig.LcdDisplay;
             clone.Preconditions             = Preconditions.Clone() as PreconditionList;
