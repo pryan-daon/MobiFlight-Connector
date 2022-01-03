@@ -985,6 +985,15 @@ namespace MobiFlight
                             );
                         break;
 
+                    case OutputConfig.UpdatedLcdDisplay.Type:
+                        mobiFlightCache.setLcdDisplay(
+                            serial,
+                            cfg.UpdatedLcdDisplay,
+                            value,
+                            GetRefs(cfg.ConfigRefs)
+                            );
+                        break;
+
                     case MobiFlightShiftRegister.TYPE:
                         if (serial != null)
                         {

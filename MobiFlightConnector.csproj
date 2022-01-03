@@ -143,6 +143,7 @@
     <Reference Include="Microsoft.FlightSimulator.SimConnect, Version=10.0.61259.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
       <HintPath>SimConnectFSX\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.JScript" />
     <Reference Include="NCalc">
       <HintPath>lib\NCalc.dll</HintPath>
     </Reference>
@@ -205,6 +206,7 @@
     <Compile Include="MobiFlight\Config\ShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
     <Compile Include="MobiFlight\Config\AnalogInput.cs" />
+    <Compile Include="MobiFlight\Config\UpdatedLcdDisplay.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020CustomInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
@@ -213,6 +215,7 @@
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
     <Compile Include="MobiFlight\MobiFlightAnalogInput.cs" />
+    <Compile Include="MobiFlight\MobiFlightUpdatedLcdDisplay.cs" />
     <Compile Include="MobiFlight\MobiFlightPin.cs" />
     <Compile Include="MobiFlight\MobiFlightShiftRegister.cs" />
     <Compile Include="MobiFlight\MobiFlightButton.cs" />
@@ -226,6 +229,10 @@
     <Compile Include="MobiFlight\OutputConfig\Servo.cs" />
     <Compile Include="MobiFlight\OutputConfig\VariableOutput.cs" />
     <Compile Include="MobiFlight\OutputConfig\SimConnectValue.cs" />
+    <Compile Include="MobiFlight\Scripting\CachedSciptedInstanceProvider.cs" />
+    <Compile Include="MobiFlight\Scripting\CompilableScript.cs" />
+    <Compile Include="MobiFlight\Scripting\LcdScriptedContentDisplayHelper.cs" />
+    <Compile Include="MobiFlight\Scripting\RuntimeCompiler.cs" />
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleClient.cs" />
     <Compile Include="SimConnectMSFS\SimConnectDefinitions.cs" />
@@ -818,6 +825,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialogs\DonateDialog.resx">
       <DependentUpon>DonateDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialogs\CommunityFeedbackStartupForm.de.resx">
       <DependentUpon>CommunityFeedbackStartupForm.cs</DependentUpon>
@@ -893,6 +901,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\ConfigRefPanel.de.resx">
       <DependentUpon>ConfigRefPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\SimConnectPanel.resx">
       <DependentUpon>SimConnectPanel.cs</DependentUpon>

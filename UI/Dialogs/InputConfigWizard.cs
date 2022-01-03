@@ -505,9 +505,9 @@ namespace MobiFlight.UI.Dialogs
 
                 if (panel != null)
                 {
-                    panel.Padding = new Padding(2, 0, 2, 0);
+                    panel.Padding = new Padding(2, 0, 0, 0);
                     groupBoxInputSettings.Controls.Add(panel);
-                    panel.Dock = DockStyle.Fill;
+                    panel.Dock = DockStyle.Top;
                 }
             }
             catch (Exception exc)

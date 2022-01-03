@@ -45,7 +45,7 @@ namespace MobiFlight
         Encoder,             // 8
         Stepper,             // 9
         ShiftRegister,       // 10
-        AnalogInput          // 11
+        AnalogInput         // 11
     }
 
     public class MobiFlightModule : IModule, IOutputModule
@@ -197,7 +197,8 @@ namespace MobiFlight
         Dictionary<String, MobiFlightStepper> stepperModules = new Dictionary<string, MobiFlightStepper>();
         Dictionary<String, MobiFlightServo> servoModules = new Dictionary<string, MobiFlightServo>();
         Dictionary<String, MobiFlightOutput> outputs = new Dictionary<string,MobiFlightOutput>();
-        Dictionary<String, MobiFlightLcdDisplay> lcdDisplays = new Dictionary<string, MobiFlightLcdDisplay>();
+        //Dictionary<String, MobiFlightLcdDisplay> lcdDisplays = new Dictionary<string, MobiFlightLcdDisplay>();
+        Dictionary<String, MobiFlightUpdatedLcdDisplay> updatedLcdDisplays = new Dictionary<string, MobiFlightUpdatedLcdDisplay>();
         Dictionary<String, MobiFlightButton> buttons = new Dictionary<string, MobiFlightButton>();
         Dictionary<String, MobiFlightEncoder> encoders = new Dictionary<string, MobiFlightEncoder>();
         Dictionary<String, MobiFlightAnalogInput> analogInputs = new Dictionary<string, MobiFlightAnalogInput>();
@@ -284,7 +285,8 @@ namespace MobiFlight
             stepperModules.Clear();
             servoModules.Clear();
             outputs.Clear();
-            lcdDisplays.Clear();
+            // lcdDisplays.Clear();
+            updatedLcdDisplays.Clear();
             buttons.Clear();
             encoders.Clear();
             analogInputs.Clear();
@@ -319,9 +321,13 @@ namespace MobiFlight
                         outputs.Add(device.Name, new MobiFlightOutput() { CmdMessenger = _cmdMessenger, Name = device.Name, Pin = Int16.Parse((device as Config.Output).Pin) });
                         break;
 
+                    //case DeviceType.LcdDisplay:
+                    //    device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
+                    //    lcdDisplays.Add(device.Name, new MobiFlightLcdDisplay() { CmdMessenger = _cmdMessenger, Name = device.Name, Address = lcdDisplays.Count, Cols = (device as Config.LcdDisplay).Cols, Lines = (device as Config.LcdDisplay).Lines });
+                    //    break;
                     case DeviceType.LcdDisplay:
                         device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
-                        lcdDisplays.Add(device.Name, new MobiFlightLcdDisplay() { CmdMessenger = _cmdMessenger, Name = device.Name, Address = lcdDisplays.Count, Cols = (device as Config.LcdDisplay).Cols, Lines = (device as Config.LcdDisplay).Lines });
+                        updatedLcdDisplays.Add(device.Name, new MobiFlightUpdatedLcdDisplay() { CmdMessenger = _cmdMessenger, Name = device.Name, Address = updatedLcdDisplays.Count, Cols = (device as Config.LcdDisplay).Cols, Lines = (device as Config.LcdDisplay).Lines });
                         break;
                     case DeviceType.Button:
                         device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
@@ -636,7 +642,7 @@ namespace MobiFlight
 
             lastValue[key] = cachedValue;
 
-            lcdDisplays[address].Display(address, value);
+            updatedLcdDisplays[address].Display(address, value);
             return true;
         }
 
@@ -816,9 +822,9 @@ namespace MobiFlight
                 result.Add(servo);
             }
 
-            foreach (MobiFlightLcdDisplay lcdDisplay in lcdDisplays.Values)
+            foreach (MobiFlightUpdatedLcdDisplay updatedLcdDisplay in updatedLcdDisplays.Values)
             {
-                result.Add(lcdDisplay);
+                result.Add(updatedLcdDisplay);
             }
 
             foreach (MobiFlightShiftRegister shiftRegister in shiftRegisters.Values)
@@ -836,7 +842,8 @@ namespace MobiFlight
             result[MobiFlightLedModule.TYPE] = ledModules.Count;
             result[MobiFlightStepper.TYPE] = stepperModules.Count;
             result[MobiFlightServo.TYPE] = servoModules.Count;
-            result[MobiFlightLcdDisplay.TYPE] = lcdDisplays.Count;
+            //result[MobiFlightLcdDisplay.TYPE] = updatedLcdDisplays.Count;
+            result[MobiFlightUpdatedLcdDisplay.TYPE] = updatedLcdDisplays.Count;
             result[MobiFlightShiftRegister.TYPE] = shiftRegisters.Count;
             result[MobiFlightButton.TYPE] = buttons.Count;
             result[MobiFlightEncoder.TYPE] = encoders.Count;
@@ -873,11 +880,17 @@ namespace MobiFlight
                     result.Add(servo);
             }
 
-            foreach (MobiFlightLcdDisplay lcdDisplay in lcdDisplays.Values)
+            foreach (MobiFlightUpdatedLcdDisplay lcdDisplay in updatedLcdDisplays.Values)
             {
                 if (lcdDisplay.Name == name)
                     result.Add(lcdDisplay);
             }
+
+            //foreach (MobiFlightLcdDisplay lcdDisplay in lcdDisplays.Values)
+            //{
+            //    if (lcdDisplay.Name == name)
+            //        result.Add(lcdDisplay);
+            //}
 
             foreach (MobiFlightShiftRegister shiftRegister in shiftRegisters.Values)
             {
@@ -900,7 +913,7 @@ namespace MobiFlight
             if (ledModules.Count > 0) result.Add(DeviceType.LedModule);
             if (stepperModules.Count > 0) result.Add(DeviceType.Stepper);
             if (servoModules.Count > 0) result.Add(DeviceType.Servo);
-            if (lcdDisplays.Count > 0) result.Add(DeviceType.LcdDisplay);
+            if (updatedLcdDisplays.Count > 0) result.Add(DeviceType.LcdDisplay);
             if (shiftRegisters.Count > 0) result.Add(DeviceType.ShiftRegister);
 
             return result;

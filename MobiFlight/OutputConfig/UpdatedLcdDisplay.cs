@@ -13,28 +13,22 @@ namespace MobiFlight.OutputConfig
     {
         public const string Type = "UpdatedLcdDisplay";
         public String Address { get; set; }
-        public List<String> Lines { get; set; }
         public String Script { get; set; }
+        public List<String> Lines { get; set; }
 
         public UpdatedLcdDisplay()
         {
-            Lines = new List<string>();
+            Script = "";
         }
 
         public override bool Equals(object obj)
         {
-            bool linesAreEqual = true && Lines.Count == (obj as UpdatedLcdDisplay).Lines.Count;
-
-            if (linesAreEqual)
-                for (int i = 0; i != Lines.Count; i++)
-                {
-                    linesAreEqual = linesAreEqual && (Lines[i] == (obj as UpdatedLcdDisplay).Lines[i]);
-                }
+            bool scriptsAreEqual = (obj as UpdatedLcdDisplay).Script.Equals(Script);
 
             return (
                 obj != null && obj is UpdatedLcdDisplay &&
                 this.Address == (obj as UpdatedLcdDisplay).Address &&
-                linesAreEqual
+                scriptsAreEqual
             );
         }
 
@@ -42,10 +36,7 @@ namespace MobiFlight.OutputConfig
         {
             UpdatedLcdDisplay clone = new UpdatedLcdDisplay();
             clone.Address = Address;
-            foreach (string line in Lines)
-            {
-                clone.Lines.Add(line);
-            }
+            clone.Script = Script;
 
             return clone;
         }
@@ -63,25 +54,7 @@ namespace MobiFlight.OutputConfig
             }
             reader.Read();
 
-            if (reader.LocalName == "line")
-            {
-                while (reader.LocalName == "line")
-                {
-                    if (!reader.IsEmptyElement)
-                    {
-                        reader.Read();
-                        Lines.Add(reader.Value);
-                        reader.Read();
-                        reader.ReadEndElement(); //line
-                    }
-                    else
-                    {
-                        Lines.Add("");
-                        reader.Read();
-                    }
-                }
-            }
-            else if (reader.LocalName == "script")
+            if (reader.LocalName == "script")
             {
                 reader.Read();
                 Script = reader.Value;
@@ -92,14 +65,7 @@ namespace MobiFlight.OutputConfig
         {
             writer.WriteAttributeString("address", Address);
 
-            if (Lines.Count > 0)
-            {
-                foreach (string line in Lines)
-                {
-                    writer.WriteElementString("line", line);
-                }
-            }
-            else if (Script.Length > 0)
+            if (Script.Length > 0)
             { 
                 writer.WriteAttributeString("script", Script);
             }

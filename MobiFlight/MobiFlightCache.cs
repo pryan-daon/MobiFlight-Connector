@@ -554,10 +554,41 @@ namespace MobiFlight
                 MobiFlightLcdDisplay display = null;
                 foreach (IConnectedDevice dev in module.GetConnectedDevices(LcdConfig.Address))
                 {
-                    if (dev.Type == DeviceType.LcdDisplay)
-                    {
-                        display = dev as MobiFlightLcdDisplay;
-                    }
+                    display = dev as MobiFlightLcdDisplay;
+                }
+                if (display == null) throw new Exception("LCD Display not found");
+                String sValue = display.Apply(LcdConfig, value, replacements);
+
+                module.SetLcdDisplay(LcdConfig.Address, sValue);
+            }
+            catch (Exception e)
+            {
+                throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_WritingDisplay"), e);
+            }
+        }
+
+        public void setLcdDisplay(string serial, OutputConfig.UpdatedLcdDisplay LcdConfig, string value, List<ConfigRefValue> replacements)
+        {
+            if (serial == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_SerialNull");
+            };
+
+            if (LcdConfig.Address == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_AddressNull");
+            }
+
+            try
+            {
+                if (!Modules.ContainsKey(serial)) return;
+
+                MobiFlightModule module = Modules[serial];
+                // apply the replacement in our string
+                MobiFlightUpdatedLcdDisplay display = null;
+                foreach (IConnectedDevice dev in module.GetConnectedDevices(LcdConfig.Address))
+                {
+                    display = dev as MobiFlightUpdatedLcdDisplay;
                 }
                 if (display == null) throw new Exception("LCD Display not found");
                 String sValue = display.Apply(LcdConfig, value, replacements);
