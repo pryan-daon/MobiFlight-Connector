@@ -15,8 +15,8 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void ApplyTest()
         {
-            MobiFlightLcdDisplay o = new MobiFlightLcdDisplay();
-            OutputConfig.LcdDisplay lcdConfig = new OutputConfig.LcdDisplay();
+            MobiFlightUpdatedLcdDisplay o = new MobiFlightUpdatedLcdDisplay();
+            OutputConfig.UpdatedLcdDisplay lcdConfig = new OutputConfig.UpdatedLcdDisplay();
             // let the display know what size it is
             o.Cols = 20;
             o.Lines = 1;

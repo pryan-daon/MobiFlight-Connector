@@ -13,6 +13,8 @@ namespace MobiFlight.UI.Panels
     public partial class UpdatedLCDDisplayPanel : UserControl
     {
         SimpleLCDDisplayContentPanel simpleLCDDisplayContentPanel = new SimpleLCDDisplayContentPanel();
+        NoLcdDisplayContentTypePanel noLcdDisplayContentTypePanel = new NoLcdDisplayContentTypePanel();
+        ScriptedLCDDisplayContentPanel scriptedLCDDisplayContentPanel = new ScriptedLCDDisplayContentPanel();
 
         List<UserControl> displayPanels = new List<UserControl>();
 
@@ -24,6 +26,25 @@ namespace MobiFlight.UI.Panels
             InitializeComponent();
 
             displayPanels.Add(simpleLCDDisplayContentPanel);
+            displayPanels.Add((noLcdDisplayContentTypePanel));
+            displayPanels.Add((scriptedLCDDisplayContentPanel));
+
+            groupBoxLcdContent.Controls.Add(simpleLCDDisplayContentPanel);
+            simpleLCDDisplayContentPanel.AutoSize = false;
+            simpleLCDDisplayContentPanel.Height = 0;
+            simpleLCDDisplayContentPanel.Dock = DockStyle.Top;
+
+            groupBoxLcdContent.Controls.Add(noLcdDisplayContentTypePanel);
+            noLcdDisplayContentTypePanel.Height = 0;
+            noLcdDisplayContentTypePanel.Dock = DockStyle.Top;
+            noLcdDisplayContentTypePanel.Enabled = true;
+            noLcdDisplayContentTypePanel.AutoSize = true;
+            noLcdDisplayContentTypePanel.Height = 200;
+
+            groupBoxLcdContent.Controls.Add(scriptedLCDDisplayContentPanel);
+            scriptedLCDDisplayContentPanel.AutoSize = false;
+            scriptedLCDDisplayContentPanel.Height = 0;
+            scriptedLCDDisplayContentPanel.Dock = DockStyle.Top;
         }
 
         private void lcdDisplayContentTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -42,13 +63,23 @@ namespace MobiFlight.UI.Panels
                 case 0:
                     simpleLCDDisplayContentPanel.Enabled = true;
                     simpleLCDDisplayContentPanel.AutoSize = true;
-                    //simpleLCDDisplayContentPanel.Height = 200;
+                    simpleLCDDisplayContentPanel.Height = 200;
+                    break;
+                case 1:
+                    scriptedLCDDisplayContentPanel.Enabled = true;
+                    scriptedLCDDisplayContentPanel.AutoSize = true;
+                    scriptedLCDDisplayContentPanel.Height = 200;
                     break;
                 default: 
                     Log.Instance.log("Unsupported LCD content type index: " + selectedIndex, LogSeverity.Error);
+                    noLcdDisplayContentTypePanel.Enabled = true;
+                    noLcdDisplayContentTypePanel.AutoSize = true;
+                    noLcdDisplayContentTypePanel.Height = 200;
                     break;
             }
         }
+
+
 
         private void DisplayComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -63,13 +94,23 @@ namespace MobiFlight.UI.Panels
             // check if this is currently selected and properly initialized
             if (DisplayComboBox.SelectedValue == null) return config;
 
-            config.LcdDisplay.Address = DisplayComboBox.SelectedValue.ToString().Split(',').ElementAt(0);
+            config.UpdatedLcdDisplay.Address = DisplayComboBox.SelectedValue.ToString().Split(',').ElementAt(0);
 
-            config.LcdDisplay.Lines.Clear();
-            foreach (String line in simpleLCDDisplayContentPanel.lcdDisplayTextBox.Lines)
+            config.UpdatedLcdDisplay.Lines.Clear();
+            config.UpdatedLcdDisplay.Script = "";
+
+            if (simpleLCDDisplayContentPanel.Enabled)
             {
-                config.LcdDisplay.Lines.Add(line);
+                foreach (String line in simpleLCDDisplayContentPanel.lcdDisplayTextBox.Lines)
+                {
+                    config.UpdatedLcdDisplay.Lines.Add(line);
+                }
             }
+            else if (scriptedLCDDisplayContentPanel.Enabled)
+            {
+                config.UpdatedLcdDisplay.Script = scriptedLCDDisplayContentPanel.GetScript();
+            }
+            
             return config;
         }
 
@@ -87,16 +128,30 @@ namespace MobiFlight.UI.Panels
         internal void syncFromConfig(OutputConfigItem config)
         {
             // preselect display stuff
-            if (config.LcdDisplay.Address != null)
+            if (config.UpdatedLcdDisplay.Address != null)
             {
-                if (!ComboBoxHelper.SetSelectedItem(DisplayComboBox, config.LcdDisplay.Address.ToString()))
+                if (!ComboBoxHelper.SetSelectedItem(DisplayComboBox, config.UpdatedLcdDisplay.Address.ToString()))
                 {
                     // TODO: provide error message
                     Log.Instance.log("_syncConfigToForm : Exception on selecting item in LCD Address ComboBox", LogSeverity.Debug);
                 }
             }
-            if (config.LcdDisplay.Lines.Count > 0)
-                simpleLCDDisplayContentPanel.lcdDisplayTextBox.Lines = config.LcdDisplay.Lines.ToArray();
+            if (config.UpdatedLcdDisplay.Lines != null && config.UpdatedLcdDisplay.Lines.Count > 0)
+            {
+                simpleLCDDisplayContentPanel.lcdDisplayTextBox.Lines = config.UpdatedLcdDisplay.Lines.ToArray();
+                lcdDisplayContentTypeComboBox.SelectedIndex = 0;
+                simpleLCDDisplayContentPanel.Enabled = true;
+                simpleLCDDisplayContentPanel.AutoSize = true;
+                simpleLCDDisplayContentPanel.Height = 200;
+            }
+            else
+            {
+                scriptedLCDDisplayContentPanel.SetScript(config.UpdatedLcdDisplay.Script);
+                lcdDisplayContentTypeComboBox.SelectedIndex = 1;
+                scriptedLCDDisplayContentPanel.Enabled = true;
+                scriptedLCDDisplayContentPanel.AutoSize = true;
+                scriptedLCDDisplayContentPanel.Height = 200;
+            }
         }
     }
 }

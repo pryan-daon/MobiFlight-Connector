@@ -32,7 +32,6 @@ namespace MobiFlight
 		public string       DisplaySerial               { get; set; }
 		public OutputConfig.Pin Pin                         { get; set; }
 		public OutputConfig.LedModule LedModule                   { get; set; }
-		public OutputConfig.LcdDisplay LcdDisplay                  { get; set; }
         public OutputConfig.UpdatedLcdDisplay UpdatedLcdDisplay { get; set; }
         public List<string> BcdPins                     { get; set; }
         public OutputConfig.Servo Servo { get; set; }
@@ -54,7 +53,7 @@ namespace MobiFlight
             Comparison = new OutputConfig.Comparison();
             Pin = new OutputConfig.Pin();
             LedModule = new OutputConfig.LedModule();
-            LcdDisplay = new OutputConfig.LcdDisplay();
+            UpdatedLcdDisplay = new OutputConfig.UpdatedLcdDisplay();
             Servo = new OutputConfig.Servo();
             Stepper = new OutputConfig.Stepper() { CompassMode = false };
             BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
@@ -78,7 +77,7 @@ namespace MobiFlight
                 //===
                 this.LedModule.Equals((obj as OutputConfigItem).LedModule) &&
                 //===
-                this.LcdDisplay.Equals((obj as OutputConfigItem).LcdDisplay) &&
+                this.UpdatedLcdDisplay.Equals((obj as OutputConfigItem).UpdatedLcdDisplay) &&
                 //===
                 this.Stepper.Equals((obj as OutputConfigItem).Stepper) &&
                 //===
@@ -167,14 +166,6 @@ namespace MobiFlight
                 {
                     Stepper.ReadXml(reader);
                 }              
-                else if (DisplayType == OutputConfig.LcdDisplay.Type)
-                {
-                    if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
-                    LcdDisplay.ReadXml(reader);
-                    
-                    // don't read to the end tag all the way
-                    reader.Read();
-                }
                 else if (DisplayType == OutputConfig.UpdatedLcdDisplay.Type)
                 {
                     if (UpdatedLcdDisplay == null) UpdatedLcdDisplay = new OutputConfig.UpdatedLcdDisplay();
@@ -295,11 +286,6 @@ namespace MobiFlight
                 {
                     Stepper.WriteXml(writer);
                 }
-                else if (DisplayType == OutputConfig.LcdDisplay.Type)
-                {
-                    if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
-                    LcdDisplay.WriteXml(writer);
-                }
                 else if (DisplayType == OutputConfig.UpdatedLcdDisplay.Type)
                 {
                     if (UpdatedLcdDisplay == null) UpdatedLcdDisplay = new OutputConfig.UpdatedLcdDisplay();
@@ -359,7 +345,7 @@ namespace MobiFlight
             clone.ShiftRegister             = this.ShiftRegister;
             clone.RegisterOutputPin         = this.RegisterOutputPin;
 
-            clone.LcdDisplay                = this.LcdDisplay.Clone() as OutputConfig.LcdDisplay;
+            clone.UpdatedLcdDisplay         = this.UpdatedLcdDisplay.Clone() as OutputConfig.UpdatedLcdDisplay;
             clone.Preconditions             = Preconditions.Clone() as PreconditionList;
 
             clone.Interpolation             = this.Interpolation.Clone() as Interpolation;

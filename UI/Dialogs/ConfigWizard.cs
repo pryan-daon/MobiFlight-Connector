@@ -36,7 +36,7 @@ namespace MobiFlight.UI.Dialogs
         Panels.DisplayBcdPanel              displayBcdPanel             = new Panels.DisplayBcdPanel();
         Panels.DisplayLedDisplayPanel       displayLedDisplayPanel      = new Panels.DisplayLedDisplayPanel();
         Panels.DisplayNothingSelectedPanel  displayNothingSelectedPanel = new Panels.DisplayNothingSelectedPanel();
-        Panels.LCDDisplayPanel              displayLcdDisplayPanel      = new Panels.LCDDisplayPanel();
+        //Panels.LCDDisplayPanel              displayLcdDisplayPanel      = new Panels.LCDDisplayPanel();
         Panels.UpdatedLCDDisplayPanel       updatedLcdDisplayPanel      = new Panels.UpdatedLCDDisplayPanel();
         Panels.ServoPanel                   servoPanel                  = new Panels.ServoPanel();
         Panels.StepperPanel                 stepperPanel                = new Panels.StepperPanel();
@@ -164,10 +164,10 @@ namespace MobiFlight.UI.Dialogs
             stepperPanel.OnStepperSelected +=  StepperPanel_OnStepperSelected;
 
 
-            groupBoxDisplaySettings.Controls.Add(displayLcdDisplayPanel);
-            displayLcdDisplayPanel.AutoSize = false;
-            displayLcdDisplayPanel.Height = 0;
-            displayLcdDisplayPanel.Dock = DockStyle.Top;
+            //groupBoxDisplaySettings.Controls.Add(displayLcdDisplayPanel);
+            //displayLcdDisplayPanel.AutoSize = false;
+            //displayLcdDisplayPanel.Height = 0;
+            //displayLcdDisplayPanel.Dock = DockStyle.Top;
 
             groupBoxDisplaySettings.Controls.Add(updatedLcdDisplayPanel);
             updatedLcdDisplayPanel.AutoSize = false;
@@ -182,7 +182,7 @@ namespace MobiFlight.UI.Dialogs
             displayPanels.Add(displayNothingSelectedPanel);
             displayPanels.Add(servoPanel);
             displayPanels.Add(stepperPanel);
-            displayPanels.Add(displayLcdDisplayPanel);
+            //displayPanels.Add(displayLcdDisplayPanel);
             displayPanels.Add(updatedLcdDisplayPanel);
             displayPanels.Add(displayShiftRegisterPanel);
 
@@ -397,7 +397,7 @@ namespace MobiFlight.UI.Dialogs
             // to show or not show the manual calibration piece.
             stepperPanel.syncFromConfig(config);
 
-            displayLcdDisplayPanel.syncFromConfig(config);
+            //displayLcdDisplayPanel.syncFromConfig(config);
 
             updatedLcdDisplayPanel.syncFromConfig(config);
 
@@ -504,7 +504,7 @@ namespace MobiFlight.UI.Dialogs
 
             stepperPanel.syncToConfig(config);
 
-            displayLcdDisplayPanel.syncToConfig(config);
+            //displayLcdDisplayPanel.syncToConfig(config);
 
             updatedLcdDisplayPanel.syncToConfig(config);
 
@@ -784,8 +784,8 @@ namespace MobiFlight.UI.Dialogs
                                 break;
 
                             case DeviceType.LcdDisplay:
-                                int Cols = (device as MobiFlightLcdDisplay).Cols;
-                                int Lines= (device as MobiFlightLcdDisplay).Lines;
+                                int Cols = (device as MobiFlightUpdatedLcdDisplay).Cols;
+                                int Lines= (device as MobiFlightUpdatedLcdDisplay).Lines;
                                 lcdDisplays.Add(new ListItem() { Value = device.Name+","+ Cols+","+Lines, Label = device.Name });
                                 break;
                             
@@ -811,7 +811,7 @@ namespace MobiFlight.UI.Dialogs
                     displayShiftRegisterPanel.shiftRegistersComboBox.SelectedIndexChanged += new EventHandler(shiftRegistersComboBox_selectedIndexChanged);
                     displayShiftRegisterPanel.SetAddresses(shiftRegisters);
 
-                    displayLcdDisplayPanel.SetAddresses(lcdDisplays);
+                    //displayLcdDisplayPanel.SetAddresses(lcdDisplays);
 
                     updatedLcdDisplayPanel.SetAddresses(lcdDisplays);
                 }
@@ -846,9 +846,9 @@ namespace MobiFlight.UI.Dialogs
                 }
                 if ((sender as ComboBox).Text == DeviceType.LcdDisplay.ToString("F"))
                 {
-                    displayLcdDisplayPanel.Enabled = panelEnabled;
-                    displayLcdDisplayPanel.AutoSize = true;
-                    displayLcdDisplayPanel.Height = displayPanelHeight;
+                    //displayLcdDisplayPanel.Enabled = panelEnabled;
+                    //displayLcdDisplayPanel.AutoSize = true;
+                    //displayLcdDisplayPanel.Height = displayPanelHeight;
 
                     updatedLcdDisplayPanel.Enabled = panelEnabled;
                     updatedLcdDisplayPanel.AutoSize = true;

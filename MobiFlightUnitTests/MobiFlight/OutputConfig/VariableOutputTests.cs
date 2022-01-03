@@ -36,7 +36,7 @@ namespace MobiFlight.OutputConfig.Tests
         [TestMethod()]
         public void GetSchemaTest()
         {
-            LcdDisplay o = new LcdDisplay();
+            UpdatedLcdDisplay o = new UpdatedLcdDisplay();
 
             Assert.IsNull(o.GetSchema(), "Schema not null");
         }

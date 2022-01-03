@@ -36,12 +36,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.groupBoxLcdContent = new System.Windows.Forms.Panel();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // lcdDisplayContentTypeComboBox
@@ -120,28 +118,18 @@
             this.label4.TabIndex = 18;
             this.label4.Text = "Wähle Dein LCD Display und verwende die TextBox um Deine Ausgabe zu definieren.";
             // 
-            // panel4
+            // groupBoxLcdContent
             // 
-            this.panel4.Controls.Add(this.label2);
-            this.panel4.Location = new System.Drawing.Point(3, 130);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(419, 214);
-            this.panel4.TabIndex = 17;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(113, 97);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(150, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "No LCD content type selected";
+            this.groupBoxLcdContent.Location = new System.Drawing.Point(3, 130);
+            this.groupBoxLcdContent.Name = "groupBoxLcdContent";
+            this.groupBoxLcdContent.Size = new System.Drawing.Size(419, 214);
+            this.groupBoxLcdContent.TabIndex = 17;
             // 
             // UpdatedLCDDisplayPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.groupBoxLcdContent);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
@@ -152,8 +140,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -168,7 +154,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel groupBoxLcdContent;
     }
 }

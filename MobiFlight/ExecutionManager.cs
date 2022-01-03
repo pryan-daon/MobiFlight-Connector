@@ -976,14 +976,14 @@ namespace MobiFlight
                         );
                         break;
 
-                    case OutputConfig.LcdDisplay.Type:
-                        mobiFlightCache.setLcdDisplay(
-                            serial,
-                            cfg.LcdDisplay,
-                            value,
-                            GetRefs(cfg.ConfigRefs)
-                            );
-                        break;
+                    //case OutputConfig.LcdDisplay.Type:
+                    //    mobiFlightCache.setLcdDisplay(
+                    //        serial,
+                    //        cfg.LcdDisplay,
+                    //        value,
+                    //        GetRefs(cfg.ConfigRefs)
+                    //        );
+                    //    break;
 
                     case OutputConfig.UpdatedLcdDisplay.Type:
                         mobiFlightCache.setLcdDisplay(
@@ -1351,9 +1351,9 @@ namespace MobiFlight
                     ExecuteDisplay(offCfg.Servo.Min, offCfg);
                     break;
 
-                case OutputConfig.LcdDisplay.Type:
-                    offCfg.LcdDisplay.Lines.Clear();
-                    offCfg.LcdDisplay.Lines.Add(new string(' ', 20 * 4));
+                case OutputConfig.UpdatedLcdDisplay.Type:
+                    offCfg.UpdatedLcdDisplay.Lines.Clear();
+                    offCfg.UpdatedLcdDisplay.Lines.Add(new string(' ', 20 * 4));
                     ExecuteDisplay(new string(' ', 20 * 4), offCfg);
                     break;
 
@@ -1381,10 +1381,10 @@ namespace MobiFlight
                     ExecuteDisplay(cfg.Servo.Max, cfg);
                     break;
 
-                case OutputConfig.LcdDisplay.Type:
+                case OutputConfig.UpdatedLcdDisplay.Type:
                     ExecuteDisplay("1234567890", cfg);
                     break;
-                
+
                 case MobiFlightShiftRegister.TYPE:
                     ExecuteDisplay("1", cfg);
                     break;

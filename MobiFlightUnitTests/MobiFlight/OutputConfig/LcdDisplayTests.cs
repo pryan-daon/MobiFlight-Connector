@@ -16,7 +16,7 @@ namespace MobiFlight.OutputConfig.Tests
         [TestMethod()]
         public void LcdDisplayTest()
         {
-            LcdDisplay o = new LcdDisplay();
+            UpdatedLcdDisplay o = new UpdatedLcdDisplay();
             Assert.IsNotNull(o, "Object is null");
 
             Assert.IsNull(o.Address, "Address is not null");
@@ -26,11 +26,11 @@ namespace MobiFlight.OutputConfig.Tests
         [TestMethod()]
         public void CloneTest()
         {
-            LcdDisplay o = new LcdDisplay();
+            UpdatedLcdDisplay o = new UpdatedLcdDisplay();
             o.Address = "Test";
             o.Lines.Add("TestLine1");
             Assert.IsNotNull(o, "Object is null");
-            LcdDisplay c = o.Clone() as LcdDisplay;
+            UpdatedLcdDisplay c = o.Clone() as UpdatedLcdDisplay;
             Assert.AreEqual(o.Address, c.Address, "Address are not the same");
             Assert.AreEqual(o.Lines.Count, c.Lines.Count, "Line.Count not the same");
             Assert.AreEqual(o.Lines[0], c.Lines[0], "Lines[0] not the same");
@@ -39,7 +39,7 @@ namespace MobiFlight.OutputConfig.Tests
         [TestMethod()]
         public void GetSchemaTest()
         {
-            LcdDisplay o = new LcdDisplay();
+            UpdatedLcdDisplay o = new UpdatedLcdDisplay();
 
             Assert.IsNull(o.GetSchema(), "Schema not null");
         }
@@ -47,7 +47,7 @@ namespace MobiFlight.OutputConfig.Tests
         [TestMethod()]
         public void ReadXmlTest()
         {
-            LcdDisplay o = new LcdDisplay();
+            UpdatedLcdDisplay o = new UpdatedLcdDisplay();
 
             String s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\LcdDisplay\ReadXmlTest.1.xml");
             StringReader sr = new StringReader(s);
@@ -73,7 +73,7 @@ namespace MobiFlight.OutputConfig.Tests
             //settings.NewLineHandling = NewLineHandling.Entitize;
             System.Xml.XmlWriter xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
 
-            LcdDisplay o = new LcdDisplay();
+            UpdatedLcdDisplay o = new UpdatedLcdDisplay();
             o.Address = "LCDDisplay";
             o.Lines.Add("Write Test Line 1");
 
@@ -91,8 +91,8 @@ namespace MobiFlight.OutputConfig.Tests
         [TestMethod()]
         public void EqualsTest()
         {
-            LcdDisplay o1 = new LcdDisplay();
-            LcdDisplay o2 = new LcdDisplay();
+            UpdatedLcdDisplay o1 = new UpdatedLcdDisplay();
+            UpdatedLcdDisplay o2 = new UpdatedLcdDisplay();
 
             Assert.IsTrue(o1.Equals(o2));
 

@@ -16,6 +16,7 @@ namespace MobiFlight.Scripting
         public CachedSciptedInstanceProvider()
         {
             compiler = new RuntimeCompiler();
+            scriptHashToCompiledInstanceMap = new Dictionary<string, object>();
         }
 
         public object GetScriptedInstance(CompilableScript compilableScript, List<string> referencedAssemblyNames, String language = "c#")

@@ -316,7 +316,7 @@ namespace MobiFlight.UI.Panels.Settings
                             break;
 
                         case DeviceType.LcdDisplay:
-                            panel = new MFLcddDisplayPanel(dev as MobiFlight.Config.LcdDisplay, module.GetPins());
+                            panel = new MFLcddDisplayPanel(dev as MobiFlight.Config.UpdatedLcdDisplay, module.GetPins());
                             (panel as MFLcddDisplayPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
                         
@@ -438,12 +438,12 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
                     case "LcdDisplayToolStripMenuItem":
                     case "addLcdDisplayToolStripMenuItem":
-                        if (statistics[MobiFlightLcdDisplay.TYPE] == tempModule.Board.ModuleLimits.MaxLcdI2C)
+                        if (statistics[MobiFlightUpdatedLcdDisplay.TYPE] == tempModule.Board.ModuleLimits.MaxLcdI2C)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLcdDisplay.TYPE, tempModule.Board.ModuleLimits.MaxLcdI2C);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightUpdatedLcdDisplay.TYPE, tempModule.Board.ModuleLimits.MaxLcdI2C);
                         }
 
-                        cfgItem = new MobiFlight.Config.LcdDisplay();
+                        cfgItem = new MobiFlight.Config.UpdatedLcdDisplay();
                         // does not deal yet with these kind of pins because we use I2C
                         break;
 

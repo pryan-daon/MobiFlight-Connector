@@ -327,7 +327,7 @@ namespace MobiFlight
                     //    break;
                     case DeviceType.LcdDisplay:
                         device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
-                        updatedLcdDisplays.Add(device.Name, new MobiFlightUpdatedLcdDisplay() { CmdMessenger = _cmdMessenger, Name = device.Name, Address = updatedLcdDisplays.Count, Cols = (device as Config.LcdDisplay).Cols, Lines = (device as Config.LcdDisplay).Lines });
+                        updatedLcdDisplays.Add(device.Name, new MobiFlightUpdatedLcdDisplay() { CmdMessenger = _cmdMessenger, Name = device.Name, Address = updatedLcdDisplays.Count, Cols = (device as Config.UpdatedLcdDisplay).Cols, Lines = (device as Config.UpdatedLcdDisplay).Lines });
                         break;
                     case DeviceType.Button:
                         device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);

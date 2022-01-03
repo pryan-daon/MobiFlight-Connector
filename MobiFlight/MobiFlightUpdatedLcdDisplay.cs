@@ -93,7 +93,20 @@ namespace MobiFlight
                 Value = value
             });
 
-            List<String> evaluatedLines = scriptContentHelper.GetScriptedLines(lcdConfig, replacements);
+            List<String> evaluatedLines = null;
+            if (lcdConfig.Lines != null && lcdConfig.Lines.Count > 0)
+            {
+                evaluatedLines = lcdConfig.Lines;
+            }
+            else if (lcdConfig.Script != null && lcdConfig.Script.Length > 0)
+            {
+                evaluatedLines = scriptContentHelper.GetScriptedLines(lcdConfig, replacements);
+            }
+            else
+            {
+                evaluatedLines = new List<string>();
+            }
+            
 
             for (int line = 0; line != Lines; line++)
             {

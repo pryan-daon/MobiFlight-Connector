@@ -17,7 +17,7 @@ namespace MobiFlight.Config
         [XmlElement(typeof(Output))]
         [XmlElement(typeof(Servo))]
         [XmlElement(typeof(Stepper))]
-        [XmlElement(typeof(LcdDisplay))]
+        [XmlElement(typeof(UpdatedLcdDisplay))]
         [XmlElement(typeof(AnalogInput))]
         [XmlElement(typeof(ShiftRegister))]
         public List<BaseDevice> Items = new List<BaseDevice>();
@@ -115,7 +115,7 @@ namespace MobiFlight.Config
                             break;
 
                         case DeviceType.LcdDisplay:
-                            currentItem = new MobiFlight.Config.LcdDisplay();
+                            currentItem = new MobiFlight.Config.UpdatedLcdDisplay();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 

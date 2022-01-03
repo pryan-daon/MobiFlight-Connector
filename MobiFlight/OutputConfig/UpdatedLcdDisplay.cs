@@ -11,7 +11,7 @@ namespace MobiFlight.OutputConfig
 {
     public class UpdatedLcdDisplay : IXmlSerializable, ICloneable
     {
-        public const string Type = "UpdatedLcdDisplay";
+        public const string Type = "LcdDisplay";
         public String Address { get; set; }
         public String Script { get; set; }
         public List<String> Lines { get; set; }
@@ -19,6 +19,7 @@ namespace MobiFlight.OutputConfig
         public UpdatedLcdDisplay()
         {
             Script = "";
+            Lines = new List<String>();
         }
 
         public override bool Equals(object obj)
@@ -37,6 +38,10 @@ namespace MobiFlight.OutputConfig
             UpdatedLcdDisplay clone = new UpdatedLcdDisplay();
             clone.Address = Address;
             clone.Script = Script;
+            foreach (string line in Lines)
+            {
+                clone.Lines.Add(line);
+            }
 
             return clone;
         }
@@ -54,6 +59,26 @@ namespace MobiFlight.OutputConfig
             }
             reader.Read();
 
+            if (reader.LocalName == "line")
+            {
+                while (reader.LocalName == "line")
+                {
+                    if (!reader.IsEmptyElement)
+                    {
+                        reader.Read();
+                        Lines.Add(reader.Value);
+                        if (reader.NodeType == XmlNodeType.Text)
+                            reader.Read();
+                        reader.ReadEndElement(); //line
+                    }
+                    else
+                    {
+                        Lines.Add("");
+                        reader.Read();
+                    }
+                }
+            }
+
             if (reader.LocalName == "script")
             {
                 reader.Read();
@@ -64,6 +89,14 @@ namespace MobiFlight.OutputConfig
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("address", Address);
+
+            if (Lines.Count > 0)
+            {
+                foreach (string line in Lines)
+                {
+                    writer.WriteElementString("line", line);
+                }
+            }
 
             if (Script.Length > 0)
             { 

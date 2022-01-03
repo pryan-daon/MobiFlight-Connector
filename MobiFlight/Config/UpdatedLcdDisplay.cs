@@ -46,7 +46,7 @@ namespace MobiFlight.Config
 
         public override bool Equals(object obj)
         {
-            LcdDisplay other = obj as LcdDisplay;
+            UpdatedLcdDisplay other = obj as UpdatedLcdDisplay;
             if (other == null)
             {
                 return false;

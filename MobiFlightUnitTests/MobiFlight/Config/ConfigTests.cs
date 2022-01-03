@@ -127,7 +127,7 @@ namespace MobiFlight.Config.Tests
 
             Assert.AreEqual(1, o.FromInternal("7.0.1.2.Device:").Items.Count);
 
-            LcdDisplay expected = new LcdDisplay();
+            UpdatedLcdDisplay expected = new UpdatedLcdDisplay();
             expected.Name = "Device";
             expected.Address = 0;
             expected.Cols = 1;
@@ -219,7 +219,7 @@ namespace MobiFlight.Config.Tests
             expected6.Name = "Device6";
             expected6.DataPin = "0";
 
-            LcdDisplay expected7 = new LcdDisplay();
+            UpdatedLcdDisplay expected7 = new UpdatedLcdDisplay();
             expected7.Name = "Device7";
             expected7.Address = 0;
             expected7.Cols = 1;
@@ -364,7 +364,7 @@ namespace MobiFlight.Config.Tests
         {
             Config o = new Config();
 
-            LcdDisplay device = new LcdDisplay();
+            UpdatedLcdDisplay device = new UpdatedLcdDisplay();
             device.Name = "Device";
             device.Address = 0;
             device.Cols = 1;
@@ -456,7 +456,7 @@ namespace MobiFlight.Config.Tests
             device6.DataPin = "0";
             o.Items.Add(device6);
 
-            LcdDisplay device7 = new LcdDisplay();
+            UpdatedLcdDisplay device7 = new UpdatedLcdDisplay();
             device7.Name = "Device7";
             device7.Address = 0;
             device7.Cols = 1;
@@ -537,7 +537,7 @@ namespace MobiFlight.Config.Tests
             device6.DataPin = "0";
             o.Items.Add(device6);
 
-            LcdDisplay device7 = new LcdDisplay();
+            UpdatedLcdDisplay device7 = new UpdatedLcdDisplay();
             device7.Name = "Device7";
             device7.Address = 0;
             device7.Cols = 1;

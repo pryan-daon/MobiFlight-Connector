@@ -254,7 +254,6 @@
     <Compile Include="FSUIPC\FSUIPCCacheInterface.cs" />
     <Compile Include="MobiFlight\Config\Encoder.cs" />
     <Compile Include="MobiFlight\Config\EncoderSingleDetent.cs" />
-    <Compile Include="MobiFlight\Config\LCDDisplay.cs" />
     <Compile Include="MobiFlight\FlightSim.cs" />
     <Compile Include="UI\Dialogs\DonateDialog.cs">
       <SubType>Form</SubType>
@@ -373,6 +372,12 @@
     <Compile Include="UI\Panels\OutputConfigPanel.Designer.cs">
       <DependentUpon>OutputConfigPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Output\NoLcdDisplayContentTypePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Output\NoLcdDisplayContentTypePanel.Designer.cs">
+      <DependentUpon>NoLcdDisplayContentTypePanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Output\PinSelectPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -384,6 +389,12 @@
     </Compile>
     <Compile Include="UI\Panels\Output\DisplayShiftRegisterPanel.Designer.cs">
       <DependentUpon>DisplayShiftRegisterPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Output\ScriptedLCDDisplayContentPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Output\ScriptedLCDDisplayContentPanel.Designer.cs">
+      <DependentUpon>ScriptedLCDDisplayContentPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Output\SimpleLCDDisplayContentPanel.cs">
       <SubType>UserControl</SubType>
@@ -432,9 +443,7 @@
     <Compile Include="MobiFlight\InputConfig\VJoyInputAction.cs" />
     <Compile Include="MobiFlight\KeyboardInputInterface.cs" />
     <Compile Include="MobiFlight\MobiFlightCacheInterface.cs" />
-    <Compile Include="MobiFlight\MobiFlightLcdDisplay.cs" />
     <Compile Include="MobiFlight\OutputConfig\Stepper.cs" />
-    <Compile Include="MobiFlight\OutputConfig\LcdDisplay.cs" />
     <Compile Include="UI\Panels\Device\MFLcdDisplayPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -741,12 +750,6 @@
     <Compile Include="UI\Panels\Action\VJoyInputPanel.Designer.cs">
       <DependentUpon>VJoyInputPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Output\LCDDisplayPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\Output\LCDDisplayPanel.Designer.cs">
-      <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
-    </Compile>
     <None Include="ApplicationInsights.config" />
     <None Include="Boards\arduino_mega.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -946,6 +949,9 @@
     <EmbeddedResource Include="UI\Panels\Output\DisplayLedDisplayPanel.de.resx">
       <DependentUpon>DisplayLedDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\NoLcdDisplayContentTypePanel.resx">
+      <DependentUpon>NoLcdDisplayContentTypePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\PinSelectPanel.resx">
       <DependentUpon>PinSelectPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -954,6 +960,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\DisplayPinPanel.de.resx">
       <DependentUpon>DisplayPinPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\ScriptedLCDDisplayContentPanel.resx">
+      <DependentUpon>ScriptedLCDDisplayContentPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\SimpleLCDDisplayContentPanel.resx">
       <DependentUpon>SimpleLCDDisplayContentPanel.cs</DependentUpon>
@@ -1021,9 +1030,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\PreconditionPanel.resx">
       <DependentUpon>PreconditionPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Output\LCDDisplayPanel.de.resx">
-      <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\RetriggerInputPanel.resx">
       <DependentUpon>RetriggerInputPanel.cs</DependentUpon>
@@ -1205,9 +1211,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\VJoyInputPanel.resx">
       <DependentUpon>VJoyInputPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Output\LCDDisplayPanel.resx">
-      <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>
