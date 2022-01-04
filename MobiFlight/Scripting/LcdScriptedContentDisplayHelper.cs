@@ -1,6 +1,7 @@
 ﻿using MobiFlight.OutputConfig;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -10,33 +11,10 @@ namespace MobiFlight.Scripting
 {
     public class LcdScriptedContentDisplayHelper
     {
-        private static readonly string preSource =
-@"
-using System;
-using System.Collections.Generic;
-using MobiFlight;
-using MobiFlight.OutputConfig;
-
-namespace MobiFlight
-{
-    public class ProconditionEvaluator
-    {
-        public List<String> EvaluateLcdDisplayLines(UpdatedLcdDisplay updatedLcdDisplay, List<ConfigRefValue> configRefValues)
-        {
-            List<String> lines = new List<String>();
-";
-
-        private static readonly string postSource =
-@"          return lines;
-        } 
-    }
-}";
-
-        private static readonly string scriptedTypeName = "MobiFlight.ProconditionEvaluator";
-
-        private static readonly string evaluationMethodName = "EvaluateLcdDisplayLines";
-
-        private static readonly List<String> referencedAssemblies = new List<string> { "System.dll", "System.Xml.dll", "MFConnector.exe" };
+        private static readonly string SCRIPTED_TYPE_NAME = "MobiFlight.Scripting.PreconditionEvaluator";
+        private static readonly string EVALUATION_METHOD_NAME = "EvaluateLcdDisplayLines";
+        private static readonly string SCRIPT_PLACEHOLDER = "/***%SCRIPT%***/";
+        private static readonly List<String> REFERENCED_ASSEMBLIES = new List<string> { "System.dll", "System.Xml.dll", "MFConnector.exe" };
 
         private CachedSciptedInstanceProvider cachedSciptedInstanceProvider;
 
@@ -52,9 +30,10 @@ namespace MobiFlight
 
         public object GetScriptedInstance(string script)
         {
-            CompilableScript compilableScript = new CompilableScript(script, preSource, postSource, scriptedTypeName);
+            // Within the assembly resources must be prefixed with "MobiFlight" followed by namespace
+            CompilableScript compilableScript = new CompilableScript("MobiFlight." + SCRIPTED_TYPE_NAME + ".cs", script, SCRIPT_PLACEHOLDER, SCRIPTED_TYPE_NAME);
 
-            return cachedSciptedInstanceProvider.GetScriptedInstance(compilableScript, referencedAssemblies);
+            return cachedSciptedInstanceProvider.GetScriptedInstance(compilableScript, REFERENCED_ASSEMBLIES);
         }
 
         public List<String> GetScriptedLines(UpdatedLcdDisplay lcdConfig, List<ConfigRefValue> replacements)
@@ -62,7 +41,7 @@ namespace MobiFlight
             object evaluatorInstance = GetScriptedInstance(lcdConfig.Script);
 
             List<String> evaluatedLines = (List<String>)evaluatorInstance.GetType().InvokeMember(
-                     evaluationMethodName,
+                     EVALUATION_METHOD_NAME,
                      BindingFlags.InvokeMethod,
                      null,
                      evaluatorInstance,

@@ -21,13 +21,13 @@ namespace MobiFlight.Scripting
 
         public object GetScriptedInstance(CompilableScript compilableScript, List<string> referencedAssemblyNames, String language = "c#")
         {
-            string scriptHash = compilableScript.CalculateHash();
+            string scriptHash = compilableScript.GetScriptHash();
             if (scriptHashToCompiledInstanceMap.ContainsKey(scriptHash))
             {
                 return scriptHashToCompiledInstanceMap[scriptHash];
             }
 
-            Assembly assembly = compiler.Compile(compilableScript.Source(), language, referencedAssemblyNames);
+            Assembly assembly = compiler.Compile(compilableScript.GetFormattedSource(), language, referencedAssemblyNames);
 
             object scriptInstance = GetCompiledTypeInstance(compilableScript, assembly);
 

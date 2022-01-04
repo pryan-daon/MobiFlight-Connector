@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,24 +10,43 @@ namespace MobiFlight.Scripting
 {
     public class CompilableScript
     {
-        public string Script { get; internal set; }
-        public string ScriptSourcePrefix { get; internal set; }
-        public string ScriptSourceSuffix { get; internal set; }
-        public string CompiledScriptHash { get; internal set; }
         public string ScriptTypeName { get; internal set; }
+        public string Script { get; internal set; }
+        public string ScriptPlaceholder { get; internal set; }
+        public string SourceResourceName { get; internal set; }
+
+        private string scriptHash;
+        private string formattedSource;
 
         public CompilableScript(
-            string script, string scriptSourcePrefix, string scriptSourceSuffix, string scriptTypeName)
+            string sourceResourceName, string script, string scriptPlaceholder, string scriptTypeName)
         {
+            SourceResourceName = sourceResourceName;
             Script = script;
-            ScriptSourcePrefix = scriptSourcePrefix;
-            ScriptSourceSuffix = scriptSourceSuffix;
+            ScriptPlaceholder = scriptPlaceholder;
             ScriptTypeName = scriptTypeName;
         }
 
-        public string CalculateHash()
+        public string GetScriptHash()
         {
-            // Could be quicker to calculate an MD5 hash
+            if (scriptHash == null)
+            {
+                scriptHash = CalculateScriptHash();
+            }
+            return scriptHash;
+        }
+
+        public string GetFormattedSource()
+        {
+            if (formattedSource == null)
+            {
+                formattedSource = LoadAndFormatSource();
+            }
+            return formattedSource;
+        }
+
+        protected string CalculateScriptHash()
+        {
             using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
             {
                 byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(Script);
@@ -35,25 +56,32 @@ namespace MobiFlight.Scripting
                 {
                     sb.Append(hashBytes[i].ToString("X2"));
                 }
-                CompiledScriptHash = sb.ToString();
-                return CompiledScriptHash;
+                return sb.ToString();
             }
         }
 
-        public string Source()
+        protected String LoadAndFormatSource()
         {
-            string source = Script;
-            if (ScriptSourcePrefix != null)
+            var assembly = Assembly.GetExecutingAssembly();
+
+            string[] resourceNames = assembly.GetManifestResourceNames();
+            foreach (string resourceName in resourceNames)
             {
-                source = ScriptSourcePrefix + source;
+                Log.Instance.log(resourceName, LogSeverity.Info);
             }
 
-            if (ScriptSourceSuffix != null)
+            string source = null;
+            using (Stream stream = assembly.GetManifestResourceStream(SourceResourceName))
+            using (StreamReader reader = new StreamReader(stream))
             {
-                source = source + ScriptSourceSuffix;
+                source = reader.ReadToEnd();
             }
+            return FormatSource(source);
+        }
 
-            return source;
+        protected string FormatSource(string rawSource)
+        {
+            return rawSource.Replace(ScriptPlaceholder, Script);
         }
     }
 }
