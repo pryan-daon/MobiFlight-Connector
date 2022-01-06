@@ -198,6 +198,7 @@
     <Compile Include="Base\FullCacheInterface.cs" />
     <Compile Include="Base\i18n.cs" />
     <Compile Include="Base\PreconditionList.cs" />
+    <Compile Include="Base\ScriptCompilationException.cs" />
     <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\AppTelemetry.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="MobiFlight\Scripting\LcdScriptedContentDisplayHelper.cs" />
     <EmbeddedResource Include="MobiFlight\Scripting\PreconditionEvaluator.cs" />
     <Compile Include="MobiFlight\Scripting\RuntimeCompiler.cs" />
+    <Compile Include="Base\ScriptCompilationError.cs" />
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleClient.cs" />
     <Compile Include="SimConnectMSFS\SimConnectDefinitions.cs" />

@@ -64,12 +64,6 @@ namespace MobiFlight.Scripting
         {
             var assembly = Assembly.GetExecutingAssembly();
 
-            string[] resourceNames = assembly.GetManifestResourceNames();
-            foreach (string resourceName in resourceNames)
-            {
-                Log.Instance.log(resourceName, LogSeverity.Info);
-            }
-
             string source = null;
             using (Stream stream = assembly.GetManifestResourceStream(SourceResourceName))
             using (StreamReader reader = new StreamReader(stream))

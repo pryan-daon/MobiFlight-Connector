@@ -100,7 +100,7 @@ namespace MobiFlight.OutputConfig
 
             if (Script.Length > 0)
             { 
-                writer.WriteAttributeString("script", Script);
+                writer.WriteElementString("script", Script);
             }
         }
 

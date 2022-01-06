@@ -491,4 +491,7 @@ Respective input actions won't work until they are connected and you have restar
   <data name="uiMessageUpdateOldFirmwareTitle" xml:space="preserve">
     <value>New Firmware Available!</value>
   </data>
+  <data name="uiMessageConfigWizard_ScriptCompilationFailure" xml:space="preserve">
+    <value>Failed to compile script</value>
+  </data>
 </root>

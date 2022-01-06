@@ -38,6 +38,10 @@ namespace MobiFlight.Scripting
 
         private object GetCompiledTypeInstance(CompilableScript compilableScript, Assembly assembly)
         {
+            if (assembly == null)
+            {
+                return null;
+            }
             Type type = assembly.GetType(compilableScript.ScriptTypeName);
             return Activator.CreateInstance(type);
         }

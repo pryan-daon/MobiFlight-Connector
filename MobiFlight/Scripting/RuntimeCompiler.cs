@@ -1,11 +1,7 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MobiFlight.Scripting
 {
@@ -24,16 +20,25 @@ namespace MobiFlight.Scripting
                 }
             }
             CompilerResults results = provider.CompileAssemblyFromSource(compilerParameters, source);
-            StringWriter sw = new StringWriter();
+            List<ScriptCompilationError> errors = GetErrors(results);
+
+            if (errors.Count > 0)
+            {
+                throw new MobiFlight.ScriptCompilationException(errors, i18n._tr("uiMessageConfigWizard_ScriptCompilationFailure"));
+            }
+            return results.CompiledAssembly;
+        }
+
+        protected List<ScriptCompilationError> GetErrors(CompilerResults results)
+        {
+            List<ScriptCompilationError> errors = new List<ScriptCompilationError>();
             foreach (CompilerError ce in results.Errors)
             {
                 if (ce.IsWarning) continue;
-                sw.WriteLine("{0}({1},{2}: error {3}: {4}", ce.FileName, ce.Line, ce.Column, ce.ErrorNumber, ce.ErrorText);
+
+                errors.Add(new ScriptCompilationError(ce.Line, ce.Column, ce.ErrorText));
             }
-            string errorText = sw.ToString();
-            if (errorText.Length > 0)
-                throw new ApplicationException(errorText);
-            return results.CompiledAssembly;
+            return errors;
         }
     }
 }

@@ -1159,7 +1159,15 @@ namespace MobiFlight.UI.Dialogs
             }
             catch (Exception e)
             {
-                Log.Instance.log($"Error Test Mode execution. ExecuteTestOn > {e.Message}", LogSeverity.Error);
+                if (e.InnerException is ScriptCompilationException)
+                {
+                    ScriptCompilationException scriptCompilationException = e.InnerException as ScriptCompilationException;
+                    MessageBox.Show(scriptCompilationException.GetCompilationErrorMessage(), scriptCompilationException.Message);
+                }
+                else
+                {
+                    Log.Instance.log($"Error Test Mode execution. ExecuteTestOn > {e.Message}", LogSeverity.Error);
+                }
             }
         }
 
