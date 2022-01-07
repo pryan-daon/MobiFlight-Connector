@@ -976,16 +976,7 @@ namespace MobiFlight
                         );
                         break;
 
-                    //case OutputConfig.LcdDisplay.Type:
-                    //    mobiFlightCache.setLcdDisplay(
-                    //        serial,
-                    //        cfg.LcdDisplay,
-                    //        value,
-                    //        GetRefs(cfg.ConfigRefs)
-                    //        );
-                    //    break;
-
-                    case OutputConfig.UpdatedLcdDisplay.Type:
+                    case MobiFlightUpdatedLcdDisplay.TYPE:
                         mobiFlightCache.setLcdDisplay(
                             serial,
                             cfg.UpdatedLcdDisplay,
@@ -1381,7 +1372,7 @@ namespace MobiFlight
                     ExecuteDisplay(cfg.Servo.Max, cfg);
                     break;
 
-                case OutputConfig.UpdatedLcdDisplay.Type:
+                case MobiFlightUpdatedLcdDisplay.TYPE:
                     ExecuteDisplay("1234567890", cfg);
                     break;
 

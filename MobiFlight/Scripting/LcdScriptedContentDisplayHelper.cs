@@ -54,7 +54,7 @@ namespace MobiFlight.Scripting
         {
             object evaluatorInstance = GetScriptedInstance(lcdConfig.Script);
 
-            if (evaluatorInstance != null)
+            if (evaluatorInstance == null)
             {
                 return new List<String>();
             }

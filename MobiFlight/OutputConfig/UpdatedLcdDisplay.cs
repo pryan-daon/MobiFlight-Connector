@@ -83,7 +83,9 @@ namespace MobiFlight.OutputConfig
             {
                 reader.Read();
                 Script = reader.Value;
+                reader.Read();
             }
+            reader.Read();
         }
 
         public void WriteXml(XmlWriter writer)
